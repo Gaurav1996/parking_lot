@@ -1,4 +1,4 @@
-# Sahaj_parking_lot
+# Parking lot design
 
 ## Description
 A parking lot is a dedicated area that is intended for parking vehicles. Parking lots are
