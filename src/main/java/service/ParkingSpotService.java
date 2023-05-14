@@ -6,6 +6,7 @@ import models.Vehicle;
 import models.VehicleType;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Gaurav
@@ -17,6 +18,9 @@ public class ParkingSpotService {
 
     public ParkingSpotService(int noOfMotorcycleSpots, int noOfCarSpots, int noOfBusSpots) {
 
+        if(noOfMotorcycleSpots < 0 || noOfCarSpots < 0 || noOfBusSpots < 0) {
+            throw new RuntimeException("Number of spots to be alloted cannot be negative");
+        }
         this.parkingSpotDAO = new ParkingSpotDAO();
         for(int i = 0; i < noOfMotorcycleSpots; i++) {
             parkingSpotDAO.createParkingSpot(VehicleType.MOTORCYCLE);
@@ -42,7 +46,8 @@ public class ParkingSpotService {
 
     public void removeVehicle(Vehicle vehicle) {
 
-        ParkingSpot allottedSpot = parkingSpotDAO.getAllottedSpot(vehicle);
+        ParkingSpot allottedSpot = Optional.of(parkingSpotDAO.getAllottedSpot(vehicle))
+                .orElseThrow(() -> new RuntimeException("Vehicle is not alloted any spot. Cannot unpark the vehicle " + vehicle));
         parkingSpotDAO.unAssignParkingSpot(allottedSpot, vehicle);
     }
 }

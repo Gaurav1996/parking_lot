@@ -14,7 +14,9 @@ public class AirportParking implements ParkingFeeModel {
     public Long calculateFees(VehicleType vehicleType, Duration duration) {
 
         long fee;
-        long hours = duration.toHours();
+        long minutes = duration.toMinutes();
+        long hours = (long) (minutes/60.0);
+        minutes = minutes%60;
         switch(vehicleType) {
 
             case MOTORCYCLE:
@@ -25,7 +27,11 @@ public class AirportParking implements ParkingFeeModel {
                 } else if(hours < 24) {
                     fee = 60;
                 } else {
-                    fee = 80 * (hours / 24);
+                    long days = hours/24;
+                    fee = 80 * days;
+                    if(hours%24 != 0) {
+                        fee += 80;
+                    }
                 }
                 break;
 
@@ -35,7 +41,11 @@ public class AirportParking implements ParkingFeeModel {
                 } else if(hours < 24) {
                     fee = 80;
                 } else {
-                    fee = 100 * (hours / 24);
+                    long days = hours/24;
+                    fee = 100 * days;
+                    if(hours%24 != 0) {
+                        fee += 100;
+                    }
                 }
                 break;
 

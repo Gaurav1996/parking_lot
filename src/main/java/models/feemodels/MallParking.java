@@ -14,7 +14,8 @@ public class MallParking implements ParkingFeeModel {
     public Long calculateFees(VehicleType vehicleType, Duration duration) {
 
         long fee;
-        long hours = Math.max(duration.toHours(), 1);
+        long minutes = duration.toMinutes();
+        long hours = (long) Math.ceil(minutes/60.0);
         switch (vehicleType) {
 
             case MOTORCYCLE:
