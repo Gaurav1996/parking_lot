@@ -1,7 +1,10 @@
 package service;
 
 import dao.ParkingTicketDAO;
-import models.*;
+import models.ParkingReceipt;
+import models.ParkingSpot;
+import models.ParkingTicket;
+import models.Vehicle;
 import models.feemodels.FeeModel;
 
 import java.time.Duration;
